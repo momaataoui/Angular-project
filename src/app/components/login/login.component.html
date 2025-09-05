@@ -1,0 +1,87 @@
+<!-- login.component.html -->
+<!-- Conteneur principal de la page de connexion -->
+<div class="min-h-screen">
+  <div class="max-w-md">
+    <!-- En-tête de la page -->
+    <div class="text-center">
+      <div class="icon-container">
+        <!-- Icône représentant une réclamation -->
+        <mat-icon>assignment</mat-icon>
+      </div>
+      <h2>Welcome Back</h2>
+      <p>Sign in to your reclamation management account</p>
+    </div>
+
+    <!-- Carte du formulaire de connexion -->
+    <div class="card">
+      <!-- Formulaire réactif avec gestion de la soumission -->
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- Groupe de champ pour l'email -->
+        <div>
+          <label for="email">Email</label>
+          <!-- Champ de saisie de l'email -->
+          <input 
+            id="email" 
+            type="email" 
+            formControlName="email" 
+            placeholder="Enter your email" 
+            required
+          />
+          <!-- Message d'erreur pour la validation de l'email -->
+          <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" 
+               class="error-message">
+            Please enter a valid email.
+          </div>
+        </div>
+
+        <!-- Groupe de champ pour le mot de passe -->
+        <div>
+          <label for="password">Password</label>
+          <div class="relative">
+            <!-- Champ de saisie du mot de passe avec bascule de visibilité -->
+            <input 
+              id="password" 
+              [type]="showPassword ? 'text' : 'password'" 
+              formControlName="password" 
+              placeholder="Enter your password" 
+              required
+            />
+            <!-- Bouton pour basculer la visibilité du mot de passe -->
+            <button type="button" 
+                    class="password-toggle" 
+                    (click)="showPassword = !showPassword"
+                    [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+              <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <!-- Options supplémentaires -->
+        <div class="flex items-center justify-between">
+          <!-- Case à cocher "Se souvenir de moi" -->
+          <mat-checkbox formControlName="rememberMe">Remember me</mat-checkbox>
+          <!-- Lien mot de passe oublié -->
+          <a href="#" class="forgot-password">Forgot password?</a>
+        </div>
+
+        <!-- Bouton de soumission -->
+        <button mat-flat-button 
+                color="primary" 
+                class="w-full" 
+                [disabled]="isLoading || loginForm.invalid" 
+                type="submit"
+                aria-label="Sign in">
+          {{ isLoading ? "Signing in..." : "Sign in" }}
+        </button>
+
+        <!-- Lien vers la page d'inscription -->
+        <div class="text-center mt-4">
+          <p>
+            Don't have an account?
+            <a routerLink="/register" class="register-link">Create one here</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

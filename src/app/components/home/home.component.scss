@@ -1,0 +1,152 @@
+/* --- Variables de Style pour la page d'accueil --- */
+:host {
+  --sqli-red: #E4002B;
+  --text-light: #ffffff;
+  --text-dark: #333333;
+  --overlay-color: rgba(0, 0, 0, 0.6);
+  --card-bg: rgba(255, 255, 255, 0.1);
+  --card-border: rgba(255, 255, 255, 0.2);
+  --font-family: 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* --- Conteneur principal avec image de fond --- */
+.hero-container {
+  height: 100vh;
+  width: 100%;
+  
+  /* --- CORRECTION APPLIQUÉE ICI --- */
+  /* On utilise un chemin relatif qui remonte jusqu'au dossier src */
+  background-image: linear-gradient(var(--overlay-color), var(--overlay-color)), url('../../../assets/SQLI Rabat.jpg');
+  
+  background-size: cover;
+  background-position: center;
+  color: var(--text-light);
+  font-family: var(--font-family);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+/* --- Barre de Navigation --- */
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 5%;
+  
+  // --- MODIFICATION APPLIQUÉE ICI ---
+  background-color: rgba(255, 255, 255, 0.1); // Fond blanc semi-transparent
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); // Bordure subtile en dessous
+  backdrop-filter: blur(10px); // Effet de verre dépoli (très moderne)
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    img { height: 40px; }
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+
+    a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      &:hover { color: var(--sqli-red); }
+    }
+  }
+}
+
+/* --- Contenu Principal --- */
+.hero-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-text {
+  margin-bottom: 3rem;
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .subtitle {
+    font-size: 1.2rem;
+    opacity: 0.8;
+  }
+}
+
+/* --- Cartes d'Action --- */
+.action-cards {
+  display: flex;
+  gap: 2rem;
+  max-width: 900px;
+  width: 100%;
+}
+
+.card {
+  flex: 1;
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 2rem;
+  border-radius: 12px;
+  backdrop-filter: blur(10px); // Effet de verre dépoli
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+  }
+
+  .card-icon {
+    font-size: 2.5rem;
+    color: var(--sqli-red);
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: 2rem;
+  }
+}
+
+/* --- Style des Boutons --- */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--sqli-red);
+  color: var(--text-light);
+  &:hover { background-color: #B30022; }
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-light);
+  border: 1px solid var(--text-light);
+  &:hover { background-color: var(--text-light); color: var(--text-dark); }
+}

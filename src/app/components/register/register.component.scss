@@ -1,0 +1,110 @@
+// src/app/register/register.component.scss
+
+:host {
+  display: block;
+  font-family: 'Inter', sans-serif;
+}
+
+// --- PALETTE DE COULEURS AVEC LE BON BLEU ---
+$primary-color: #1E295A; // La couleur bleu nuit que vous voulez
+$primary-color-hover: #2a3a7a;
+$page-bg-color: #F0F2F7;
+$card-bg-color: #FFFFFF;
+$text-dark: #111827;
+$text-medium: #4B5563;
+$text-light: #6B7280;
+$border-color: #E5E7EB;
+$error-color: #DC2626;
+
+// --- Page principale (inchangé) ---
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background-color: $page-bg-color;
+}
+
+.register-container {
+  max-width: 28rem;
+  width: 100%;
+}
+
+// --- En-tête (inchangé) ---
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+  .icon-wrapper {
+    margin: 0 auto 1.25rem;
+    height: 4rem; width: 4rem;
+    background-color: $primary-color;
+    border-radius: 0.75rem;
+    display: flex; align-items: center; justify-content: center;
+    .icon { color: white; transform: scale(1.5); }
+  }
+  h2 { font-size: 1.875rem; font-weight: 700; color: $text-dark; margin-bottom: 0.5rem; }
+  p { color: $text-medium; }
+}
+
+// --- Carte du formulaire  ---
+.form-card {
+  background-color: $card-bg-color;
+  border-radius: 1rem;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  form { display: flex; flex-direction: column; gap: 1.75rem; }
+}
+
+// --- Champs de formulaire ---
+.fields-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-field {
+  label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $text-dark;
+    margin-bottom: 0.5rem;
+
+    .required-asterisk { color: $error-color; margin-left: 0.1rem; }
+
+    .required-text {
+      color: $text-light;
+      font-weight: 400;
+      font-size: 0.8rem;
+      margin-left: 0.25rem;
+    }
+  }
+
+  input {
+    width: 100%; border: 1px solid $border-color; border-radius: 0.5rem;
+    padding: 0.8rem 1rem; font-size: 1rem; transition: border-color 0.2s, box-shadow 0.2s;
+    &::placeholder { color: #9ca3af; }
+    &:focus { outline: none; border-color: $primary-color; box-shadow: 0 0 0 3px rgba($primary-color, 0.1); }
+  }
+}
+
+
+.password-wrapper {
+    position: relative;
+    .password-toggle { position: absolute; top: 0; bottom: 0; right: 0; padding: 0 1rem; display: flex; align-items: center; background: transparent; border: none; cursor: pointer; color: $text-light; &:hover { color: $text-medium; } }
+}
+
+.submit-button {
+    width: 100%; padding: 0.8rem 0; border-radius: 9999px; background-color: $primary-color; color: white; font-weight: 600; font-size: 1rem; transition: background-color 0.2s; display: flex; align-items: center; justify-content: center;
+    &:hover:not(:disabled) { background-color: $primary-color-hover; }
+    mat-icon { margin-right: 0.5rem; }
+}
+
+.footer-link {
+    text-align: center;
+    p { font-size: 0.875rem; color: $text-medium; }
+    a { font-weight: 600; color: $primary-color; text-decoration: none; transition: color 0.2s; &:hover { text-decoration: underline; color: $primary-color-hover; } }
+}
+
+.error-message { color: $error-color; font-size: 0.75rem; margin-top: 0.3rem; }

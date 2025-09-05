@@ -1,0 +1,58 @@
+<!-- Conteneur principal de la page d'authentification admin/assigné -->
+<div class="auth-container">
+  <!-- Panneau d'illustration (image de fond) -->
+  <div class="auth-art"></div>
+  
+  <!-- Panneau du formulaire de connexion -->
+  <div class="auth-form-panel">
+    <div class="form-content">
+      <!-- Logo de l'application -->
+      <img src="assets/logo-sqli.png" alt="SQLI Logo" class="logo">
+      
+      <!-- Titre de la page -->
+      <h2>ACCÈS ADMINISTRATEUR / ASSIGNÉ</h2>
+      
+      <!-- Sous-titre explicatif -->
+      <p class="subtitle">Veuillez vous authentifier pour accéder au panneau de gestion.</p>
+
+      <!-- Formulaire de connexion -->
+      <!-- #loginForm est une référence locale au formulaire -->
+      <!-- (ngSubmit) déclenche la méthode onSubmit() lors de la soumission -->
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+        <!-- Groupe de formulaire pour l'email -->
+        <div class="form-group">
+          <label for="email">Adresse email</label>
+          <!-- 
+            - type="email" : Valide le format d'email
+            - required : Champ obligatoire
+            - [(ngModel)] : Lier la valeur à credentials.email
+            - name="email" : Requis pour la validation
+          -->
+          <input type="email" id="email" name="email" [(ngModel)]="credentials.email" required email>
+        </div>
+        
+        <!-- Groupe de formulaire pour le mot de passe -->
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <!-- 
+            - type="password" : Masque les caractères saisis
+            - required : Champ obligatoire
+            - [(ngModel)] : Lier la valeur à credentials.password
+            - name="password" : Requis pour la validation
+          -->
+          <input type="password" id="password" name="password" [(ngModel)]="credentials.password" required>
+        </div>
+        
+        <!-- Bouton de soumission -->
+        <!-- Désactivé si le formulaire est invalide -->
+        <button type="submit" [disabled]="loginForm.invalid">SE CONNECTER</button>
+      </form>
+      
+      <!-- Lien de retour vers la page d'accueil -->
+      <div class="switch-form back-link">
+        <!-- Lien de navigation vers la page d'accueil -->
+        <a routerLink="/">&larr; Retour à l'accueil</a>
+      </div>
+    </div>
+  </div>
+</div>

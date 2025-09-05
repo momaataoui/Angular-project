@@ -1,0 +1,59 @@
+<!-- src/app/register/register.component.html -->
+
+<div class="register-page">
+  <div class="register-container">
+    <div class="header">
+      <div class="icon-wrapper">
+        <mat-icon class="icon">assignment</mat-icon>
+      </div>
+      <h2>Create Account</h2>
+      <p>Join MaVoix to start managing reclamations</p>
+    </div>
+
+    <div class="form-card">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="fields-group">
+          <!-- Username -->
+          <div class="form-field">
+            <label for="username">Username <span class="required-asterisk">*</span></label>
+            <input id="username" type="text" formControlName="username" placeholder="Enter your username" />
+          </div>
+
+          <!-- Email -->
+          <div class="form-field">
+            <label for="email">Email <span class="optional-text">(obligatoire)</span></label>
+            <input id="email" type="email" formControlName="email" placeholder="Enter your email" />
+           
+          </div>
+
+          <!-- Password -->
+          <div class="form-field">
+            <label for="password">Password <span class="required-asterisk">*</span></label>
+            <div class="password-wrapper">
+              <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Enter your password" />
+              <button type="button" class="password-toggle" (click)="showPassword = !showPassword">
+                <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <!-- Le bloc "Confirm Password" a été entièrement supprimé de cette section -->
+
+        </div>
+
+        <!-- Submit -->
+        <button mat-flat-button class="submit-button" [disabled]="isLoading" type="submit">
+          <mat-icon>person_add</mat-icon>
+          <span>Create Account</span>
+        </button>
+
+        <div class="footer-link">
+          <p>
+            Already have an account?
+            <a routerLink="/login">Sign in here</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

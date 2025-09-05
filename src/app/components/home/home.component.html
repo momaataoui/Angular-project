@@ -1,0 +1,54 @@
+<!-- Conteneur principal de la page d'accueil -->
+<div class="hero-container">
+  <!-- Barre de navigation principale -->
+  <nav class="main-nav">
+    <!-- Logo et nom du site -->
+    <div class="logo">
+      <img src="assets/logo-sqli.png" alt="SQLI Logo">
+      <span>Support Center</span>
+    </div>
+    
+    <!-- Liens de navigation -->
+    <ul class="nav-links">
+      <li><a routerLink="/">Accueil</a></li>
+      <li>
+        <!-- Lien externe sécurisé vers la page de contact SQLI -->
+        <a href="https://www.sqli.com/int-en/contact-us" target="_blank" rel="noopener noreferrer">Contactez-nous</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Section principale (Hero) -->
+  <main class="hero-content">
+    <!-- Texte d'accueil principal -->
+    <div class="hero-text">
+      <h1>Bienvenue sur le portail de gestion des réclamations internes</h1>
+      <p class="subtitle">Votre point d'entrée unique pour toutes vos demandes de support.</p>
+    </div>
+
+    <!-- Conteneur des cartes d'action -->
+    <div class="action-cards">
+      <!-- Carte pour l'Administrateur / Assigné -->
+      <div class="card admin-card">
+        <div class="card-icon">
+          <i class="fas fa-user-shield"></i> <!-- Icône Font Awesome pour l'administrateur -->
+        </div>
+        <h3>Accès Administrateur / Assigné</h3>
+        <p>Réservé à l'équipe de support pour le traitement et le suivi des réclamations.</p>
+        <!-- Lien vers la page de connexion administrateur -->
+        <a routerLink="/login" class="btn btn-primary">Se connecter</a>
+      </div>
+
+      <!-- Carte pour le Collaborateur -->
+      <div class="card user-card">
+        <div class="card-icon">
+          <i class="fas fa-user-plus"></i> <!-- Icône Font Awesome pour le collaborateur -->
+        </div>
+        <h3>Espace Collaborateur</h3>
+        <p>Pour tous les collaborateurs souhaitant soumettre ou suivre leurs demandes.</p>
+        <!-- Lien vers le portail de choix (connexion/inscription) -->
+        <a routerLink="/portal" class="btn btn-secondary">Accéder à mon espace</a>
+      </div>
+    </div>
+  </main>
+</div>

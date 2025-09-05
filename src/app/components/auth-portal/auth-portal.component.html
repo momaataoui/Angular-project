@@ -1,0 +1,20 @@
+<!-- Fichier : src/app/components/auth-portal/auth-portal.component.html -->
+
+<div class="portal-container">
+  <div class="portal-box">
+    <!-- Le logo SQLI -->
+    <img src="assets/logo.png" alt="SQLI Logo" class="logo">
+    
+    <h2>Espace Collaborateur</h2>
+    <p class="subtitle">Connectez-vous pour suivre vos demandes ou créez un compte pour soumettre une nouvelle réclamation.</p>
+    
+    <div class="portal-actions">
+      <!-- Ce lien mène à la page de login générique -->
+      <a routerLink="/login" class="btn btn-primary">Se Connecter</a>
+      <!-- Ce lien mène à la page d'inscription -->
+      <a routerLink="/register" class="btn btn-secondary">Créer un Compte</a>
+    </div>
+    
+    <a routerLink="/" class="back-link">&larr; Retour à l'accueil</a>
+  </div>
+</div>

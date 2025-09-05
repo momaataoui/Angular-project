@@ -1,0 +1,101 @@
+/* Fichier : src/app/components/auth-portal/auth-portal.component.scss */
+
+// Variables de style pour la cohérence
+:host {
+  --sqli-red: #E4002B;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --bg-page: #f8f9fa;
+  --border-color: #dee2e6;
+  --border-radius: 8px;
+  --font-family: 'Segoe UI', 'Roboto', sans-serif;
+}
+
+// Conteneur principal qui centre la boîte
+.portal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--bg-page);
+  padding: 2rem;
+  font-family: var(--font-family);
+}
+
+// La boîte blanche centrale
+.portal-box {
+  background: white;
+  padding: 2.5rem 3rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  max-width: 450px;
+  width: 100%;
+}
+
+.logo {
+  height: 70px; // Ajustez la taille si besoin
+  margin-bottom: 2rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.subtitle {
+  margin-bottom: 2.5rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.portal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+// Style commun pour les boutons
+.btn {
+  display: block;
+  padding: 0.9rem;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+// Bouton principal (rouge)
+.btn-primary {
+  background-color: var(--sqli-red);
+  color: white;
+  &:hover {
+    background-color: #B30022; // Rouge plus foncé
+    transform: translateY(-2px);
+  }
+}
+
+// Bouton secondaire (bordure)
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-color);
+  &:hover {
+    background-color: #f1f3f5;
+    border-color: #ced4da;
+  }
+}
+
+// Lien de retour
+.back-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  &:hover {
+    text-decoration: underline;
+  }
+}

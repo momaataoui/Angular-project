@@ -1,0 +1,630 @@
+/* Fichier : src/app/components/dashboard/dashboard.component.scss */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+// ==========================================================================
+// 1. VARIABLES & CONFIGURATION
+// ==========================================================================
+$sidebar-width: 280px;
+$primary-color: #1e2b66;
+$light-primary-color: #f5f3ff;
+$success-color: #1abc9c;
+$warning-color: #e2a03f;
+$info-color: #2196f3;
+$danger-color: #e7515a;
+$text-color-dark: #0e1726;
+$text-color-light: #888ea8;
+$text-color-medium: #506690;
+$border-color: #e0e6ed;
+$background-color: #f8f8f8;
+$card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+$card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
+$base-border-radius: 16px;
+$transition-speed: 0.2s ease-in-out;
+
+// ==========================================================================
+// 2. STYLES RÉUTILISABLES
+// ==========================================================================
+%card-base {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: $base-border-radius;
+    border: 2px solid $border-color;
+  box-shadow: $card-shadow;
+}
+
+// ==========================================================================
+// 3. STRUCTURE & LAYOUT
+// ==========================================================================
+.dashboard-layout {
+  display: flex;
+  height: 100vh;
+  background-color: $background-color;
+  font-family: 'Inter', sans-serif;
+}
+
+.sidebar {
+  width: $sidebar-width;
+  flex-shrink: 0;
+  background-color: #F0F5FF;
+  border-right: 1px solid $border-color;
+  display: flex;
+  flex-direction: column;
+  transition: width $transition-speed;
+
+  .sidebar-header {
+    display: flex; align-items: center; height: 100px; padding: 0 25px; border-bottom: 1px solid $border-color;
+    h2 { font-size: 1.7rem; color: rgb(69, 69, 79); font-weight: 600; white-space: nowrap; }
+    img { width: 100px; height: 70px; margin-right: 15px; color: $primary-color;margin-top: 18px; object-fit: contain; }
+  }
+
+  .user-profile {
+    display: flex; align-items: center; padding: 20px 25px;
+    .avatar { width: 45px; height: 45px; border-radius: 50%; margin-right: 15px; object-fit: cover; }
+    .user-info { line-height: 1.5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .user-name { font-weight: 600; color: $text-color-dark; }
+  }
+  
+  .main-nav {
+    flex-grow: 1; padding-top: 15px;
+    ul { list-style: none; padding: 0; margin: 0; }
+    li {
+      display: flex; align-items: center; padding: 14px 20px; margin: 0 15px 8px;
+      cursor: pointer; border-radius: 8px; transition: all $transition-speed;
+      position: relative; color: $text-color-dark; font-weight: 500;
+      svg { margin-right: 16px; width: 20px; color: $text-color-light; }
+      &.active {
+        background-color: $light-primary-color; color: $primary-color; font-weight: 600;
+        svg { color: $primary-color; }
+        &::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); height: 60%; width: 4px; background-color: $primary-color; border-radius: 0 4px 4px 0; }
+      }
+    }
+  }
+
+  .sidebar-footer {
+    padding: 20px 15px; margin-top: auto; border-top: 1px solid $border-color;
+    .logout-button {
+      display: flex; align-items: center; padding: 12px 20px; border-radius: 8px;
+      cursor: pointer; color: $text-color-light; font-weight: 500; transition: color $transition-speed;
+      svg { margin-right: 12px; width: 20px; height: 20px; transition: color $transition-speed; }
+      &:hover { color: $danger-color; svg { color: $danger-color; } }
+    }
+  }
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 30px 40px;
+  overflow-y: auto;
+}
+
+// ==========================================================================
+// 4. COMPOSANTS COMMUNS
+// ==========================================================================
+.page-header {
+  margin-bottom: 30px;
+  h1 { font-size: 2rem; color: $text-color-dark; font-weight: 700; margin: 0; }
+  p { margin-top: 8px; font-size: 1rem; color: $text-color-light; }
+  
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 10px;
+  border: 1px solid transparent; font-weight: 600; cursor: pointer; transition: all $transition-speed;
+  svg { width: 18px; height: 18px; }
+  &.btn-primary {
+    background-color: $primary-color; color: #fff;
+    &:hover:not(:disabled) { background-color: darken($primary-color, 8%); transform: translateY(-2px); box-shadow: 0 4px 8px rgba($primary-color, 0.3); }
+  }
+  &.btn-secondary {
+    background-color: #fff; color: $text-color-dark; border-color: $border-color;
+    &:hover:not(:disabled) { background-color: #f8f9fa; border-color: #c9d1da; }
+  }
+}
+$status-colors: ("nouveau": #6c757d, "en-cours": $warning-color, "traite": $success-color);
+.statut-badge { padding: 5px 12px; border-radius: 16px; font-weight: 500; font-size: 0.8rem; color: #fff; white-space: nowrap; }
+@each $status, $color in $status-colors {
+  .statut-#{$status} { background-color: $color; @if $status == "en-cours" { color: #fff; } }
+}
+
+// ==========================================================================
+// 5. VUES SPÉCIFIQUES
+// ==========================================================================
+.home-view-container, .form-view-container, .list-view-container, .details-view-container {
+  width: 100%; max-width: 950px; margin: 0 auto;
+  
+}
+.card-container, .form-card, .list-card, .details-card { @extend %card-base; }
+
+// --- Vue Accueil ---
+.stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; margin-bottom: 30px; }
+.stat-card {
+  @extend %card-base; padding: 20px 25px; display: flex; justify-content: space-between; align-items: center;
+  transition: transform $transition-speed, box-shadow $transition-speed;
+  &:hover { transform: translateY(-5px); box-shadow: $card-shadow-hover; }
+  .stat-info { display: flex; flex-direction: column; justify-content: center;
+    .stat-title { font-size: 0.9rem; color: $text-color-light; font-weight: 500; margin-bottom: 8px; }
+    .stat-number { font-size: 2.2rem; font-weight: 700; color: $text-color-dark; line-height: 1; }
+  }
+  .stat-icon-wrapper { width: 48px; height: 48px; border-radius: 12px; display: flex; justify-content: center; align-items: center;
+    svg { width: 24px; height: 24px; }
+    &.icon-bg-blue { background-color: rgba($info-color, 0.15); svg { color: $info-color; } }
+    &.icon-bg-yellow { background-color: rgba($warning-color, 0.15); svg { color: $warning-color; } }
+    &.icon-bg-green { background-color: rgba($success-color, 0.15); svg { color: $success-color; } }
+  }
+}
+.card-container { margin-bottom: 30px; h3 { font-size: 1.2rem; font-weight: 600; margin: 0 0 20px 0; color: $text-color-dark; }}
+.actions-container { display: flex; gap: 25px; flex-wrap: wrap; }
+
+// --- Vue Formulaire ---
+.form-card .form-header { margin-bottom: 30px; h2 { font-size: 1.5rem; } p {font-size: 0.9rem;} }
+.form-row { display: flex; gap: 25px; }
+.form-group { display: flex; flex-direction: column; flex: 1; margin-bottom: 25px;
+  label { font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; span { color: $danger-color; }}
+  input, select, textarea { width: 100%; padding: 12px 15px; border: 1px solid $border-color; border-radius: 8px; font-size: 1rem; background-color: #fcfcfc;
+    &:focus-visible { outline: none; border-color: $primary-color; box-shadow: 0 0 0 3px rgba($primary-color, 0.15); }
+  }
+}
+.form-actions { display: flex; justify-content: flex-end; gap: 15px; margin-top: 10px; padding-top: 20px; border-top: 1px solid $border-color; }
+
+// --- Vue Liste ---
+.list-card { padding: 10px 20px; }
+.reclamation-list-item { display: flex; justify-content: space-between; align-items: center; padding: 20px 10px; border-bottom: 1px solid $border-color; cursor: pointer;
+  &:last-child { border-bottom: none; }
+  &:hover { background-color: #f8f9fa; }
+  .reclamation-list-status { display: flex; align-items: center; gap: 15px; }
+}
+.delete-button { background: transparent; border: none; cursor: pointer; padding: 5px; border-radius: 50%; display: flex; color: $text-color-light;
+  svg { width: 20px; height: 20px; }
+  &:hover { background-color: rgba($danger-color, 0.1); color: $danger-color; }
+}
+
+// --- Vue Détail ---
+.details-view-container { display: flex; flex-direction: column; gap: 25px; }
+.details-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;
+  .header-left { display: flex; align-items: center; gap: 20px; }
+  .header-title {
+    h1 { font-size: 1.8rem; }
+    .meta-info { display: flex; align-items: center; gap: 20px; color: $text-color-light; font-weight: 500; span { display: flex; align-items: center; gap: 6px; } svg { width: 16px; height: 16px; } }
+  }
+  .header-right { display: flex; gap: 10px; }
+}
+.back-button { background-color: #fff; border: 1px solid $border-color; padding: 8px 15px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+.details-card {
+  padding: 30px 40px;
+  h3, h4 { font-size: 1.1rem; font-weight: 600; color: $text-color-dark; margin: 0 0 20px 0; }
+  .detail-grid { display: grid; grid-template-columns: auto 1fr; gap: 12px 20px; padding-bottom: 20px; border-bottom: 1px solid $border-color; p { margin: 0; } strong { color: $text-color-dark; } }
+  .message-section { padding: 20px 0; .original-message { line-height: 1.6; color: $text-color-medium; margin: 0; } }
+  .admin-actions { border-top: 1px solid $border-color; margin-top: 20px; padding-top: 25px; }
+}
+.comments-list { display: flex; flex-direction: column; gap: 20px; }
+.comment-item { display: flex; gap: 15px; align-items: flex-start;
+  .comment-avatar { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background-color: $light-primary-color; display: flex; align-items: center; justify-content: center; color: $primary-color; font-weight: 600; }
+  .comment-body { flex-grow: 1; }
+  .comment-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; strong { color: $text-color-dark; font-weight: 600; } }
+  .comment-date { display: flex; align-items: center; gap: 5px; color: $text-color-light; font-size: 0.8rem; svg { width: 14px; height: 14px; } }
+  .comment-content { margin: 0; line-height: 1.6; color: $text-color-medium; }
+}
+.comment-form {
+  textarea { width: 100%; min-height: 100px; padding: 12px; border-radius: 8px; border: 1px solid $border-color; margin-bottom: 15px; font-family: inherit; font-size: 1rem;
+    &:focus-visible { outline: none; border-color: $primary-color; box-shadow: 0 0 0 3px rgba($primary-color, 0.15); }
+  }
+  .form-actions { display: flex; justify-content: flex-end; align-items: center; }
+  .form-check { margin-right: auto; display: flex; align-items: center; gap: 8px; }
+}
+.no-comments { color: $text-color-light; font-style: italic; }
+
+// ==========================================================================
+// 6. ÉTATS (LOADING, EMPTY) & RESPONSIVE DESIGN
+// ==========================================================================
+.loading-state, .error-state { text-align: center; padding: 40px; }
+// Nouveau Code
+// Nouveau Code
+.empty-state-container {
+  text-align: center;
+  padding: 60px 20px; // Plus d'espace vertical
+
+  // Style pour la nouvelle image
+  .empty-state-image {
+    max-width: 150px; // Définir la largeur maximale de l'icône
+    margin: 0 auto 25px auto; // Espacement en dessous
+    opacity: 0.6; // La rendre un peu plus discrète
+  }
+  
+  .empty-state-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: $text-color-dark;
+    margin: 0;
+  }
+
+  .empty-state-subtitle {
+    font-size: 1rem;
+    color: $text-color-light;
+    margin-top: 10px;
+  }
+}
+  .empty-state-title {
+    font-size: 1.2rem;
+    
+    font-weight: 600;
+    color: $text-color-dark;
+    margin: 0;
+    
+  }
+
+  .empty-state-subtitle {
+    font-size: 1rem;
+    color: $text-color-light;
+    margin-top: 10px;
+  }
+@media (max-width: 768px) {
+  .main-content { padding: 15px; }
+  .details-header { flex-direction: column; gap: 15px; }
+  .form-row { flex-direction: column; gap: 0; margin-bottom: 0; }
+}
+// --- Vue Détail ---
+.details-view-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .header-title {
+    h1 {
+      font-size: 1.8rem;
+      color: $text-color-dark;
+      font-weight: 700;
+      margin: 0 0 10px 0;
+    }
+    .meta-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: $text-color-light;
+      font-weight: 500;
+      span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+  .header-right {
+    display: flex;
+    gap: 10px;
+  }
+}
+
+.back-button {
+  background-color: #fff;
+  border: 1px solid $border-color;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all $transition-speed;
+  &:hover {
+    background-color: #f8f9fa;
+  }
+}
+// --- Vue Détail ---
+.details-view-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .header-title {
+    h1 {
+      font-size: 1.8rem;
+      color: $text-color-dark;
+      font-weight: 700;
+      margin: 0 0 10px 0;
+    }
+    .meta-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: $text-color-light;
+      font-weight: 500;
+      span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+  .header-right {
+    display: flex;
+    gap: 10px;
+  }
+}
+
+.back-button {
+  background-color: #fff;
+  border: 1px solid $border-color;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all $transition-speed;
+  &:hover {
+    background-color: #f8f9fa;
+  }
+}
+
+.details-card {
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $text-color-dark;
+    margin: 0 0 20px 0;
+  }
+}
+
+.original-message {
+  line-height: 1.6;
+  color: $text-color-medium;
+  margin: 0;
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.comment-item {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  .comment-avatar {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: $light-primary-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $primary-color;
+    font-weight: 600;
+  }
+  .comment-body {
+    flex-grow: 1;
+  }
+  .comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    strong {
+      color: $text-color-dark;
+      font-weight: 600;
+    }
+  }
+  .comment-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .comment-date {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: $text-color-light;
+    font-size: 0.8rem;
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+  .comment-content {
+    margin: 0;
+    line-height: 1.6;
+    color: $text-color-medium;
+  }
+}
+
+.delete-comment-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  color: $text-color-light;
+  opacity: 0;
+  transition: all $transition-speed;
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+  .comment-item:hover & {
+    opacity: 1;
+  }
+  &:hover {
+    background-color: rgba($danger-color, 0.1);
+    color: $danger-color;
+  }
+}
+
+.comment-form {
+  textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid $border-color;
+    margin-bottom: 15px;
+    font-family: inherit;
+    font-size: 1rem;
+    &:focus-visible {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.15);
+    }
+  }
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.admin-actions {
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid $border-color;
+}
+
+.no-comments {
+  color: $text-color-light;
+  font-style: italic;
+}
+.details-card {
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $text-color-dark;
+    margin: 0 0 20px 0;
+  }
+}
+
+.original-message {
+  line-height: 1.6;
+  color: $text-color-medium;
+  margin: 0;
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.comment-item {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  
+  .comment-avatar {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: $light-primary-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $primary-color;
+    font-weight: 600;
+  }
+
+  .comment-body {
+    flex-grow: 1;
+  }
+
+  .comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    strong {
+      color: $text-color-dark;
+      font-weight: 600;
+    }
+  }
+
+  .comment-date {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: $text-color-light;
+    font-size: 0.8rem;
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  .comment-content {
+    margin: 0;
+    line-height: 1.6;
+    color: $text-color-medium;
+  }
+}
+
+.comment-form {
+  textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid $border-color;
+    margin-bottom: 15px;
+    font-family: inherit;
+    font-size: 1rem;
+    &:focus-visible {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.15);
+    }
+  }
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.admin-actions {
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid $border-color;
+}
+
+.no-comments {
+  color: $text-color-light;
+  font-style: italic;
+}

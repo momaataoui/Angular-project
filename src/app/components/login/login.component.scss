@@ -1,0 +1,214 @@
+// login.component.scss
+
+// It's a good practice to encapsulate component styles.
+:host {
+  display: block; // Ensures the host element takes up space.
+}
+
+// --- Variables for easy customization ---
+$primary-color: #020061; // A nice blue, similar to Tailwind's blue-500
+$primary-color-hover:#020061;
+$text-dark: #1f2937;
+$text-medium: #4b5563;
+$text-light: #6b7280;
+$border-color: #d1d5db;
+$background-color: #ffffff;
+$page-bg-start: rgba($primary-color, 0.05);
+$page-bg-end: #eff6ff; // A light blue, similar to Tailwind's blue-100
+
+// --- Main Page Container ---
+.min-h-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(to bottom right, $page-bg-start, $page-bg-end);
+}
+.error-message {
+  color: #F44336; // Rouge
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  border: 1px solid $border-color;
+  border-radius: 0.375rem;
+  padding: 0.6rem 0.75rem;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+  }
+}
+label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $text-dark;
+  margin-bottom: 0.5rem;
+}
+.max-w-md {
+  max-width: 28rem; // ~448px
+  width: 100%;
+}
+
+// --- Header Section ---
+.text-center {
+  text-align: center;
+}
+
+.icon-container {
+  margin: 0 auto 1rem;
+  height: 4rem; // 64px
+  width: 4rem; // 64px
+  background-color: $primary-color;
+  border-radius: 0.75rem; // rounded-xl
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // Style for the mat-icon inside
+  mat-icon {
+    color: white;
+    // The default mat-icon size might be small, adjust if needed
+    transform: scale(1.5);
+  }
+}
+
+h2 {
+  font-size: 1.875rem; // 3xl
+  font-weight: 700;
+  color: $text-dark;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  color: $text-medium;
+}
+
+// --- The Form Card ---
+.card {
+  background-color: $background-color;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+form {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; // Replaces space-y-6
+}
+
+// --- Form Inputs ---
+label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $text-dark;
+  margin-bottom: 0.5rem;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  border: 1px solid $border-color;
+  border-radius: 0.375rem;
+  padding: 0.6rem 0.75rem;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+  }
+}
+
+// --- Password Visibility Toggle ---
+.relative {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding: 0 0.75rem;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: $text-light;
+
+  &:hover {
+    color: $text-medium;
+  }
+}
+
+// --- Remember Me & Forgot Password ---
+.flex.items-center.justify-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Target the label inside the checkbox for styling
+::ng-deep .mat-checkbox-layout .mat-checkbox-label {
+  font-size: 0.875rem;
+}
+
+// --- Links ---
+a {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $primary-color;
+  text-decoration: none;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $primary-color-hover;
+    text-decoration: underline;
+  }
+}
+
+// --- Submit Button ---
+// Your HTML uses mat-flat-button which already has styles.
+// This ensures it is full-width and applies consistent overrides if needed.
+button[mat-flat-button] {
+  width: 100%;
+  padding: 0.75rem 0;
+   &.mat-primary {
+    background-color: #020061;
+    color: white; // Assure que le texte reste blanc
+  }
+  // The color="primary" attribute will handle the background color
+  // but you can override it here if you need to.
+}
+
+// --- Bottom "Create Account" Link ---
+.text-center.mt-4 {
+  text-align: center;
+  margin-top: 1rem; // Optional, as the form gap handles it
+  p {
+    font-size: 0.875rem;
+    color: $text-medium;
+  }
+}

@@ -1,0 +1,118 @@
+
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: (
+      primary: mat.$rose-palette,
+      tertiary: mat.$red-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  // Reset the user agent margin.
+  margin: 0;
+}
+/* src/styles.scss */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+/* dans src/styles.scss */
+
+// style pour la snackbar de succès
+.success-snackbar {
+  background-color: #4caf50; // un fond vert
+  color: white;
+}
+
+// style pour la snackbar d'erreur
+.error-snackbar {
+  background-color: #f44336; // un fond rouge
+  color: white;
+}
+:root {
+  /* Vos variables existantes, inchangées */
+  --background-dark: #1E1C31;
+  --text-light: #F0F0F0;
+  --text-muted: #A0A0B0;
+  --primary-button-bg: #5B587A;
+  --input-border: #4A4762;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  
+  /* NOUVELLE VARIABLE pour le fond de la page */
+  --background-page: #f0f2f5; 
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+// 4. Appliquer le style de base au corps de la page
+body {
+  font-family: 'Poppins', sans-serif;
+  
+  /* === MODIFICATION CLÉ === */
+  /* On utilise la nouvelle variable pour le fond de la page */
+  background-color: var(--background-page); 
+  
+  /* La couleur de texte par défaut est moins importante ici, 
+     car elle sera définie dans le conteneur sombre */
+  color: #333; 
+  line-height: 1.6;
+}
+/* Fichier : src/styles.scss */
+
+/* ... (vos autres styles globaux) ... */
+
+// Style commun pour le bouton de navigation entre les tableaux de bord
+.nav-button {
+  margin: 0 auto 0 2rem;
+  padding: 8px 14px;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #a0a0b0;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-weight: 500;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* On s'assure que les en-têtes utilisent Flexbox */
+.dashboard-container header, .admin-dashboard-container header {
+  display: flex;
+  align-items: center;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

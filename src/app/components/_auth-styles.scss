@@ -1,0 +1,82 @@
+:host {
+  --pink-accent:  rgb(38, 70, 109);
+  --text-primary: #212529;
+  --text-secondary: #757575;
+  --bg-page: #f5f5f5;
+  --border-color-light: #e0e0e0;
+  --font-family: 'Roboto', 'Segoe UI', sans-serif;
+  --border-radius: 12px; // Un peu plus arrondi
+}
+
+/* --- Conteneur Principal --- */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--bg-page);
+  padding: 1rem;
+  font-family: var(--font-family);
+}
+
+/* --- Boîte de Formulaire Centrée --- */
+.form-box {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 420px;
+  padding: 3rem; // Padding généreux
+  display: flex;
+  flex-direction: column; // Aligne tout verticalement
+  align-items: center;    // Centre tout horizontalement
+}
+
+/* --- Logo --- */
+.logo {
+  height: 60px; // Ajustez si besoin
+  width: auto;
+  margin-bottom: 2.5rem;
+}
+
+/* --- Formulaire complet --- */
+.auth-form {
+  width: 100%; // Le formulaire prend toute la largeur de la boîte
+}
+
+/* --- Groupe de champ (icône + input) --- */
+.form-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 2px solid var(--border-color-light);
+  padding-bottom: 0.5rem;
+  transition: border-bottom-color 0.3s ease;
+
+  &:focus-within {
+    border-bottom-color: var(--pink-accent);
+    .icon { color: var(--pink-accent); }
+  }
+
+  .icon { font-size: 1.3rem; color: var(--text-secondary); }
+  .input-wrapper { flex-grow: 1; }
+  label { font-size: 0.85rem; color: var(--text-secondary); display: block; }
+  input { width: 100%; border: none; font-size: 1rem; padding: 0.25rem 0; background: transparent; &:focus { outline: none; } }
+}
+
+/* Bouton de Soumission */
+button[type="submit"] {
+  width: 100%; padding: 1rem; border: none; background-color: var(--pink-accent);
+  color: white; border-radius: var(--border-radius); font-size: 1rem; font-weight: 600;
+  text-transform: uppercase; cursor: pointer; box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+  transition: all 0.3s ease;
+  &:hover { transform: translateY(-2px); }
+}
+
+/* Liens annexes */
+.switch-form {
+  margin-top: 2rem; text-align: center; font-size: 0.9rem;
+  a { color: var(--pink-accent); text-decoration: none; font-weight: 500; }
+}
