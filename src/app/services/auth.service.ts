@@ -161,6 +161,30 @@ export class AuthService {
   }
 
   /**
+   * Vérifie si l'utilisateur connecté a le rôle 'Observateur'
+   * @returns true si l'utilisateur a le rôle 'Observateur', false sinon
+   */
+  isObservateur(): boolean {
+    return this.getRole() === 'Observateur';
+  }
+
+  /**
+   * Vérifie si l'utilisateur a des droits d'administration (Admin ou Assigné)
+   * @returns true si l'utilisateur est Admin ou Assigné, false sinon
+   */
+  hasAdminRights(): boolean {
+    return this.isAdmin() || this.isAssigne();
+  }
+
+  /**
+   * Vérifie si l'utilisateur peut voir toutes les réclamations (Admin, Assigné ou Observateur)
+   * @returns true si l'utilisateur peut voir toutes les réclamations, false sinon
+   */
+  canViewAllComplaints(): boolean {
+    return this.isAdmin() || this.isAssigne() || this.isObservateur();
+  }
+
+  /**
    * Récupère l'ID de l'utilisateur à partir du token JWT
    * @returns L'ID de l'utilisateur ou null si non disponible
    */

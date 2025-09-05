@@ -71,6 +71,10 @@ export class DashboardComponent implements OnInit {
 
   // Propriétés spécifiques à l'administration
   public isUserAdmin = false;
+  public isUserAssigne = false;
+  public isUserObservateur = false;
+  public hasAdminRights = false;
+  public canViewAllComplaints = false;
   public allStatuses: Statut[] = [];
   public selectedStatusId: number | null = null;
 
@@ -90,6 +94,10 @@ export class DashboardComponent implements OnInit {
    */
   ngOnInit(): void {
     this.isUserAdmin = this.authService.isAdmin();
+    this.isUserAssigne = this.authService.isAssigne();
+    this.isUserObservateur = this.authService.isObservateur();
+    this.hasAdminRights = this.authService.hasAdminRights();
+    this.canViewAllComplaints = this.authService.canViewAllComplaints();
     this.currentUser = this.authService.getCurrentUser();
     this.setView('accueil');
 
@@ -100,10 +108,10 @@ export class DashboardComponent implements OnInit {
     }
 
     this.loadComplaints();
-    if (!this.isUserAdmin) {
+    if (!this.canViewAllComplaints) {
       this.loadCategories();
     }
-    if (this.isUserAdmin) {
+    if (this.hasAdminRights) {
       this.loadAllStatuses();
     }
   }
@@ -205,7 +213,7 @@ export class DashboardComponent implements OnInit {
 
   onAddComment(form: NgForm): void {
     if (form.invalid || !this.selectedComplaint) return;
-    const commentData = { contenu: form.value.contenu, estPrive: this.isUserAdmin ? (form.value.estPrive || false) : false };
+    const commentData = { contenu: form.value.contenu, estPrive: this.hasAdminRights ? (form.value.estPrive || false) : false };
     this.complaintService.addComment(this.selectedComplaint.id, commentData).subscribe({
       next: () => {
         this.openSnackBar('Commentaire ajouté.');
@@ -275,10 +283,36 @@ export class DashboardComponent implements OnInit {
   }
 
   canDeleteComment(comment: any): boolean {
-    if (this.isUserAdmin) return true;
+    if (this.hasAdminRights) return true;
     const currentUserId = this.authService.getUserId();
     const isOwner = comment.auteurId === currentUserId;
     const isPending = this.selectedComplaint.statut?.nom.toLowerCase() === 'en attente';
     return isOwner && isPending;
+  }
+
+  /**
+   * Vérifie si l'utilisateur peut modifier le statut d'une réclamation
+   * Seuls les Admin et Assigné peuvent modifier les statuts
+   */
+  canUpdateStatus(): boolean {
+    return this.hasAdminRights;
+  }
+
+  /**
+   * Vérifie si l'utilisateur peut supprimer une réclamation
+   * Seuls les Admin peuvent supprimer
+   */
+  canDeleteComplaint(): boolean {
+    return this.isUserAdmin;
+  }
+
+  /**
+   * Retourne le libellé du rôle pour l'affichage
+   */
+  getRoleLabel(): string {
+    if (this.isUserAdmin) return 'Administrateur';
+    if (this.isUserAssigne) return 'Assigné';
+    if (this.isUserObservateur) return 'Observateur';
+    return 'Collaborateur';
   }
 }
