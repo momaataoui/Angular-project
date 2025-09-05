@@ -12,13 +12,14 @@
       <img src="assets/default-avatar.png" alt="Avatar" class="avatar">
       <div class="user-info">
         <span class="user-name">{{ userNameOnly }}</span>
+        <span class="user-role">{{ getRoleLabel() }}</span>
       </div>
     </div>
     <nav class="main-nav">
       <ul>
         <li [class.active]="activeLink === 'accueil'" (click)="setView('accueil')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg><span>Accueil</span></li>
-        <li *ngIf="!isUserAdmin" [class.active]="activeLink === 'soumettre'" (click)="setView('soumettre')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></path></svg><span>Soumettre réclamation</span></li>
-        <li [class.active]="activeLink === 'suivre'" (click)="setView('suivre')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.5 6.5 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg><span>{{ isUserAdmin ? 'Toutes les réclamations' : 'Suivre réclamation' }}</span></li>
+        <li *ngIf="!canViewAllComplaints" [class.active]="activeLink === 'soumettre'" (click)="setView('soumettre')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></path></svg><span>Soumettre réclamation</span></li>
+        <li [class.active]="activeLink === 'suivre'" (click)="setView('suivre')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.5 6.5 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg><span>{{ canViewAllComplaints ? 'Toutes les réclamations' : 'Suivre réclamation' }}</span></li>
       </ul>
     </nav>
     <div class="sidebar-footer"><div class="logout-button" (click)="logout()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 4.25A2.25 2.25 0 015.25 2h5.5A2.25 2.25 0 0113 4.25v2a.75.75 0 01-1.5 0v-2a.75.75 0 00-.75-.75h-5.5a.75.75 0 00-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 00.75-.75v-2a.75.75 0 011.5 0v2A2.25 2.25 0 0110.75 18h-5.5A2.25 2.25 0 013 15.75V4.25z" clip-rule="evenodd" /><path fill-rule="evenodd" d="M6 10a.75.75 0 01.75-.75h9.546l-1.048-1.047a.75.75 0 111.06-1.06l2.5 2.5a.75.75 0 010 1.06l-2.5 2.5a.75.75 0 11-1.06-1.06L16.296 10.75H6.75A.75.75 0 016 10z" clip-rule="evenodd" /></svg><span>Se déconnecter</span></div></div>
@@ -37,7 +38,7 @@
           <div class="stat-card"><div class="stat-info"><span class="stat-title">En cours</span><span class="stat-number">{{ inProgressComplaints }}</span></div><div class="stat-icon-wrapper icon-bg-yellow"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div></div>
           <div class="stat-card"><div class="stat-info"><span class="stat-title">Résolues</span><span class="stat-number">{{ resolvedComplaints }}</span></div><div class="stat-icon-wrapper icon-bg-green"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div></div>
         </div>
-        <div class="card-container"><h3>Actions rapides</h3><div class="actions-container"><button class="btn btn-primary" (click)="setView('soumettre')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path></svg>Nouvelle réclamation</button><button class="btn btn-secondary" (click)="setView('suivre')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd"></path></svg>Rechercher une réclamation</button></div></div>
+        <div class="card-container"><h3>Actions rapides</h3><div class="actions-container"><button *ngIf="!canViewAllComplaints" class="btn btn-primary" (click)="setView('soumettre')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path></svg>Nouvelle réclamation</button><button class="btn btn-secondary" (click)="setView('suivre')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd"></path></svg>Rechercher une réclamation</button></div></div>
         <div class="card-container"><h3>Réclamations récentes</h3>
 <!-- Nouveau Code -->
 <div *ngIf="!isLoading && recentComplaints.length === 0" class="empty-state-container">
@@ -57,9 +58,12 @@
       </div>
       <!-- VUE LISTE -->
       <div *ngIf="activeLink === 'suivre'" class="list-view-container">
-        <div class="page-header"><h1>{{ isUserAdmin ? 'Toutes les réclamations' : 'Suivre mes réclamations' }}</h1><p>Consultez la liste de vos réclamations et leur statut actuel.</p></div>
+        <div class="page-header">
+          <h1>{{ canViewAllComplaints ? 'Toutes les réclamations' : 'Suivre mes réclamations' }}</h1>
+          <p>{{ canViewAllComplaints ? 'Consultez la liste de toutes les réclamations et leur statut.' : 'Consultez la liste de vos réclamations et leur statut actuel.' }}</p>
+        </div>
         <div class="list-card"><div *ngIf="isLoading" class="loading-state">Chargement...</div><div *ngIf="listErrorMessage" class="error-state">{{ listErrorMessage }}</div><div *ngIf="!isLoading && complaints.length === 0" class="empty-state-container"><div class="empty-state-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"></path></svg></div><p class="empty-state-title">Aucune réclamation</p><p class="empty-state-subtitle">Il n'y a aucune réclamation à afficher.</p></div>
-        <div *ngIf="!isLoading && complaints.length > 0" class="reclamation-list-wrapper"><div *ngFor="let c of complaints" class="reclamation-list-item" (click)="viewComplaintDetails(c)"><div class="reclamation-list-info"><h3 class="reclamation-list-objet">{{ c.objet }}</h3><p class="reclamation-list-date">Soumis le : {{ c.dateSoumission | date:'dd/MM/yyyy' }}</p></div><div class="reclamation-list-status"><span class="statut-badge" [ngClass]="getStatutClass(c.statut)">{{ c.statut }}</span><button *ngIf="canBeDeleted(c.statut)" class="delete-button" (click)="onDeleteComplaint(c.id, $event)" title="Supprimer la réclamation"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.58.22-2.365.468a.75.75 0 10.23 1.482l.149-.046v8.447a2.75 2.75 0 002.75 2.75h5.5a2.75 2.75 0 002.75-2.75v-8.447l.149.046a.75.75 0 10.23-1.482A41.11 41.11 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z" clip-rule="evenodd" /></svg></button></div></div></div></div>
+        <div *ngIf="!isLoading && complaints.length > 0" class="reclamation-list-wrapper"><div *ngFor="let c of complaints" class="reclamation-list-item" (click)="viewComplaintDetails(c)"><div class="reclamation-list-info"><h3 class="reclamation-list-objet">{{ c.objet }}</h3><p class="reclamation-list-date">Soumis le : {{ c.dateSoumission | date:'dd/MM/yyyy' }}</p><p *ngIf="canViewAllComplaints && c.createur" class="reclamation-list-author">Par : {{ c.createur.nom }}</p></div><div class="reclamation-list-status"><span class="statut-badge" [ngClass]="getStatutClass(c.statut)">{{ c.statut }}</span><button *ngIf="canBeDeleted(c.statut) && canDeleteComplaint()" class="delete-button" (click)="onDeleteComplaint(c.id, $event)" title="Supprimer la réclamation"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.58.22-2.365.468a.75.75 0 10.23 1.482l.149-.046v8.447a2.75 2.75 0 002.75 2.75h5.5a2.75 2.75 0 002.75-2.75v-8.447l.149.046a.75.75 0 10.23-1.482A41.11 41.11 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z" clip-rule="evenodd" /></svg></button></div></div></div></div>
       </div>
     </div>
     
@@ -111,8 +115,8 @@
   </div>
 
   <div class="details-card">
-    <div *ngIf="isUserAdmin" class="admin-actions">
-      <h3>Actions Administrateur</h3>
+    <div *ngIf="canUpdateStatus()" class="admin-actions">
+      <h3>Actions {{ isUserAdmin ? 'Administrateur' : 'Assigné' }}</h3>
       <div class="form-group status-update">
         <label for="status-select">Changer le statut :</label>
         <select id="status-select" [(ngModel)]="selectedStatusId">
@@ -125,7 +129,7 @@
     <form class="comment-form" #commentForm="ngForm" (ngSubmit)="onAddComment(commentForm)">
       <textarea name="contenu" ngModel required placeholder="Ajouter une réponse ou une note..."></textarea>
       <div class="form-actions">
-        <div *ngIf="isUserAdmin" class="form-check">
+        <div *ngIf="hasAdminRights" class="form-check">
           <input type="checkbox" name="estPrive" id="estPrive" ngModel>
           <label for="estPrive">Marquer comme note interne (privée)</label>
         </div>

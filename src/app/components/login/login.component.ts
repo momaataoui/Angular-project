@@ -68,11 +68,11 @@ export class LoginComponent {
     this.authService.login(dataToSend).subscribe({
       next: () => {
         if (this.isForAdmin) {
-          if (this.authService.isAdmin() || this.authService.isAssigne()) {
+          if (this.authService.canViewAllComplaints()) {
             this.router.navigate(['/dashboard']);
           } else {
             this.authService.logout();
-            this.showError('Accès refusé. Cette zone est réservée à l\'équipe de support.');
+            this.showError('Accès refusé. Cette zone est réservée aux administrateurs, assignés et observateurs.');
           }
         } else {
           this.router.navigate(['/dashboard']);

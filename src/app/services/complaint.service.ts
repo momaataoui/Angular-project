@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environments';
+import { AuthService } from './auth.service';
 
 // --- INTERFACES POUR LE TYPAGE ---
 
