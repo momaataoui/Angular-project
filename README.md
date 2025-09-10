@@ -8,7 +8,7 @@
 
 ## 🚀 Aperçu / Fonctionnalités
 
-> Décris ici les principales fonctionnalités de ton appli. Par exemple :
+> Les principales fonctionnalités de mon appli. :
 - Création et gestion de composants dynamiques
 - Navigation entre plusieurs pages (routing)
 - Intégration de services ou d’API externes
@@ -16,8 +16,6 @@
 - Authentification, lazy loading, etc.
 
 ---
-
-##  Insallation & Démarrage
 
 ### 1. Cloner le dépôt
 ```bash
@@ -40,6 +38,15 @@ Angular-project/
 ├── README.md               # (Celui-ci !)
 └── .gitignore              # Fichiers ignorés par Git
 
+2. Installer les dépendances
+npm install
+
+3. Lancer le serveur de développement
+ng serve
+
+
+Ouvre ton navigateur à l’adresse http://localhost:4200/. L’appli se recharge automatiquement à chaque modification du code.
+
 Ressources utiles
 
 Documentation Angular CLI
@@ -47,6 +54,7 @@ Documentation Angular CLI
 Guides Angular officiels
 
 Angular sur GitHub
+
 
 
 
