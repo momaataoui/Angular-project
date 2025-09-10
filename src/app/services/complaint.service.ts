@@ -5,7 +5,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environments';
-import { AuthService } from './auth.service';
 
 // --- INTERFACES POUR LE TYPAGE ---
 
@@ -57,6 +56,17 @@ export interface Statut {
   providedIn: 'root'
 })
 export class ComplaintService {
+  getAllComplaintsForAdmin() {
+    throw new Error('Method not implemented.');
+  }
+getDashboardStats(): Observable<any> {
+  // Replace with your actual HTTP call, for example:
+  return this.http.get<any>('/api/dashboard/stats');
+}
+assignComplaint(complaintId: number, assigneId: number): Observable<any> {
+  // ... your code to assign complaint, for example:
+  return this.http.post<any>(`/api/complaints/${complaintId}/assign`, { assigneId });
+}
   
   private baseUrl = `${environment.apiUrl}/api/reclamations`;
   private categoriesUrl = `${environment.apiUrl}/api/categories`;
