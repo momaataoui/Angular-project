@@ -62,7 +62,7 @@ Angular-project/
 5.  **Open your browser:**
     Navigate to the local URL (usually `http://localhost:4200`).
 
-Ressources utiles
+🔍 Ressources utiles
 
 * Documentation Angular CLI
 
@@ -73,6 +73,7 @@ Ressources utiles
 ## 👤 Author
 
 *   🔗 **Mohammed MAATAOUI Belabbes** - [momaataoui](https://github.com/momaataoui)
+
 
 
 
