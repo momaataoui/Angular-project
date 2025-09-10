@@ -36,6 +36,7 @@ Angular-project/
 ├── README.md               # (Celui-ci !)
 └── .gitignore              # Fichiers ignorés par Git
 
+```
 **🚀 Getting Started:**
 
 1.  **Clone the repository:**
@@ -72,6 +73,7 @@ Ressources utiles
 ## 👤 Author
 
 *   🔗 **Mohammed MAATAOUI Belabbes** - [momaataoui](https://github.com/momaataoui)
+
 
 
 
