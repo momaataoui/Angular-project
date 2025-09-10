@@ -36,24 +36,30 @@ Angular-project/
 ├── README.md               # (Celui-ci !)
 └── .gitignore              # Fichiers ignorés par Git
 
-🚀 Getting Started:
+**🚀 Getting Started:**
 
-1. Clone the repository:
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/momaataoui/Angular-project.git
+    ```
 
-git clone https://github.com/momaataoui/Angular-project.git
-2. Navigate into the project directory:
+2.  **Navigate into the project directory:**
+    ```bash
+    cd my_angular_app
+    ```
 
-cd my_angular_app
-3. Install dependencies:
+3.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-npm install
-4. Run the development server:
-ng serve
+4.  **Run the development server:**
+    ```bash
+    ng serve
+    ```
 
 5.  **Open your browser:**
-    Navigate to the local URL (usually `http://localhost:4200` or similar).
-
-Ouvre ton navigateur à l’adresse http://localhost:4200/. L’appli se recharge automatiquement à chaque modification du code.
+    Navigate to the local URL (usually `http://localhost:4200`).
 
 Ressources utiles
 
@@ -66,6 +72,7 @@ Ressources utiles
 ## 👤 Author
 
 *   🔗 **Mohammed MAATAOUI Belabbes** - [momaataoui](https://github.com/momaataoui)
+
 
 
 
