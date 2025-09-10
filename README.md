@@ -1,9 +1,5 @@
 #  Angular-project
-  ![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
-  ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)  
-  ![.NET](https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white) 
-  ![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white)
-  ![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)  
+  ![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)   ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)   ![.NET](https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)  ![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white)  ![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)  
 
 
 **Angular-project** est une application frontend développée avec **Angular** (via Angular CLI v20.1.0). Idéale pour démarrer un projet Angular évolutif et modulable.
@@ -21,10 +17,8 @@
 
 ---
 
-### 1. Cloner le dépôt
+📁 Project Structure
 ```bash
-git clone https://github.com/momaataoui/Angular-project.git
-cd Angular-project
 Structure du projet
 Angular-project/
 ├── .vscode/                # Configs VS Code (facultatif)
@@ -42,24 +36,36 @@ Angular-project/
 ├── README.md               # (Celui-ci !)
 └── .gitignore              # Fichiers ignorés par Git
 
-2. Installer les dépendances
-npm install
+🚀 Getting Started:
 
-3. Lancer le serveur de développement
+1. Clone the repository:
+
+git clone https://github.com/momaataoui/Angular-project.git
+2. Navigate into the project directory:
+
+cd my_angular_app
+3. Install dependencies:
+
+npm install
+4. Run the development server:
 ng serve
 
+5.  **Open your browser:**
+    Navigate to the local URL (usually `http://localhost:4200` or similar).
 
 Ouvre ton navigateur à l’adresse http://localhost:4200/. L’appli se recharge automatiquement à chaque modification du code.
 
 Ressources utiles
 
-Documentation Angular CLI
+* Documentation Angular CLI
 
-Guides Angular officiels
+* Guides Angular officiels
 
-Angular sur GitHub
+* Angular sur GitHub
 
+## 👤 Author
 
+*   🔗 **Mohammed MAATAOUI Belabbes** - [momaataoui](https://github.com/momaataoui)
 
 
 
