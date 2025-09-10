@@ -28,7 +28,7 @@ $transition-speed: 0.2s ease-in-out;
   background: #fff;
   padding: 25px 30px;
   border-radius: $base-border-radius;
-    border: 2px solid $border-color;
+    border: 3px solid $border-color;
   box-shadow: $card-shadow;
 }
 
@@ -45,12 +45,13 @@ $transition-speed: 0.2s ease-in-out;
 .sidebar {
   width: $sidebar-width;
   flex-shrink: 0;
-  background-color: #F0F5FF;
+  background-color: #ffff;
   border-right: 1px solid $border-color;
   display: flex;
   flex-direction: column;
   transition: width $transition-speed;
 
+  
   .sidebar-header {
     display: flex; align-items: center; height: 100px; padding: 0 25px; border-bottom: 1px solid $border-color;
     h2 { font-size: 1.7rem; color: rgb(69, 69, 79); font-weight: 600; white-space: nowrap; }
@@ -59,20 +60,12 @@ $transition-speed: 0.2s ease-in-out;
 
   .user-profile {
     display: flex; align-items: center; padding: 20px 25px;
-    .avatar { width: 45px; height: 45px; border-radius: 50%; margin-right: 15px; object-fit: cover; }
-    .user-info { 
-      line-height: 1.5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      display: flex; flex-direction: column;
-    }
-    .user-name { font-weight: 600; color: $text-color-dark; }
-    .user-role { 
-      font-size: 0.8rem; 
-      color: $text-color-light; 
-      font-weight: 400;
-      margin-top: 2px;
-    }
+    .avatar { width: 35px; height: 35px; border-radius: 50%; margin-right: 15px; object-fit: cover; }
+    .user-info { line-height: 1.5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .user-name {text-transform: uppercase; font-weight: 550; color: $text-color-dark;margin-top: 15%; }
   }
   
+
   .main-nav {
     flex-grow: 1; padding-top: 15px;
     ul { list-style: none; padding: 0; margin: 0; }
@@ -180,12 +173,6 @@ $status-colors: ("nouveau": #6c757d, "en-cours": $warning-color, "traite": $succ
   &:last-child { border-bottom: none; }
   &:hover { background-color: #f8f9fa; }
   .reclamation-list-status { display: flex; align-items: center; gap: 15px; }
-  .reclamation-list-author { 
-    font-size: 0.85rem; 
-    color: $text-color-light; 
-    margin-top: 4px;
-    font-style: italic;
-  }
 }
 .delete-button { background: transparent; border: none; cursor: pointer; padding: 5px; border-radius: 50%; display: flex; color: $text-color-light;
   svg { width: 20px; height: 20px; }
@@ -259,7 +246,7 @@ $status-colors: ("nouveau": #6c757d, "en-cours": $warning-color, "traite": $succ
 }
   .empty-state-title {
     font-size: 1.2rem;
-    
+
     font-weight: 600;
     color: $text-color-dark;
     margin: 0;
