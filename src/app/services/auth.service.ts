@@ -147,9 +147,9 @@ export class AuthService {
    * Vérifie si l'utilisateur connecté est un administrateur
    * @returns true si l'utilisateur est un administrateur, false sinon
    */
-  isAdmin(): boolean {
+ isAdmin(): boolean {
     return this.getRole() === 'Admin';
-  }
+}
 
   /**
    * Vérifie si l'utilisateur connecté a le rôle 'Assigné'
@@ -158,30 +158,6 @@ export class AuthService {
    */
   isAssigne(): boolean {
     return this.getRole() === 'Assigne'; 
-  }
-
-  /**
-   * Vérifie si l'utilisateur connecté a le rôle 'Observateur'
-   * @returns true si l'utilisateur a le rôle 'Observateur', false sinon
-   */
-  isObservateur(): boolean {
-    return this.getRole() === 'Observateur';
-  }
-
-  /**
-   * Vérifie si l'utilisateur a des droits d'administration (Admin ou Assigné)
-   * @returns true si l'utilisateur est Admin ou Assigné, false sinon
-   */
-  hasAdminRights(): boolean {
-    return this.isAdmin() || this.isAssigne();
-  }
-
-  /**
-   * Vérifie si l'utilisateur peut voir toutes les réclamations (Admin, Assigné ou Observateur)
-   * @returns true si l'utilisateur peut voir toutes les réclamations, false sinon
-   */
-  canViewAllComplaints(): boolean {
-    return this.isAdmin() || this.isAssigne() || this.isObservateur();
   }
 
   /**
